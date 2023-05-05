@@ -1,16 +1,5 @@
 <?php
-
-   if (isset($_GET['numberInput'])) {
-    $numberInput = (int)$_GET['numberInput'];
-    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
-
-    $password = '';
-
-	for ($i = 0; $i < $numberInput; $i++) {
-		$password .= $characters[rand(0, strlen($characters) - 1)];
-	}
-   }
-   echo "<p>Your new secure password is: <strong>$password</strong></p>";
+    include __DIR__ . '/functions.php';
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <style>
         body{
-            /* background-color: darkblue; */
+            background-color: darkblue;
         }
         input{
             width: 300px;
@@ -31,14 +20,25 @@
     </style>
 </head>
 <body>
-    <h1 class="text-center text-white mt-3 text-muted">
+
+    <div class="title text-center text-white mt-3">
+    <h1 class="text-muted">
         Strong Password Generator
     </h1>
-    <h3 class="text-center text-white mt-3 fw-normal mb-3">
+    
+    <h3 class="fw-normal mb-3">
         Genera una password sicura
     </h3>
+    </div>
     
     <div class="container">
+        
+        <?php if (isset($_GET['numberInput'])) : ?>
+        <div class="alert alert-info" role="alert">
+            Your new secure password is: <strong> <?= $password ?> </strong>
+        </div>
+        <?php endif; ?>
+
         <div class="card p-5 d-flex">
             <div class="row">
             <div class="mt-3 d-flex justify-content-center align-items-center">
@@ -46,6 +46,8 @@
                     <label for="numberInput" class="form-label me-3">Lunghezza password</label>
                     <input type="text" class="ms-3 me-3" name="numberInput" id="numberInput" placeholder="">
                     <button class="btn btn-primary ms-3" type="submit">Invia</button>
+                    <button class="btn btn-warning ms-3" type="reset">Annulla</button>
+
                 </form>
             </div>
             </div>
